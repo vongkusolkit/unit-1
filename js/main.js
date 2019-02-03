@@ -3,6 +3,8 @@
 //initialize function called when the script loads
 function initialize(){
 	cities();
+	debugAjax();
+
 };
 
 //function to create a table with cities and their populations
@@ -111,6 +113,25 @@ function addEvents(){
 	$('table').on('click', clickme);
   });
 };
+
+
+//function that retrieves data and displays it on the browser
+function debugAjax(){
+	//define a variable to hold the data
+	var mydata;
+
+	//basic jQuery ajax method
+	$.ajax("data/MegaCities.geojson", {
+		dataType: "json",
+		success: function(response){
+			//store response into mydata
+			mydata = response
+			//append geojson data to mydiv
+			$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(response));
+		}
+	});
+};
+
 
 //call the initialize function when the document has loaded
 $(document).ready(initialize);
